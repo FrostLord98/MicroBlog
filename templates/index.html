@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% extends "base.html" %}
+</head>
+<body>
+  
+
+      {% block content %}
+      <h1>Hi {{ current_user.fullname }}!</h1>
+      {% if form %}
+      <form action="" method="post">
+          {{ form.hidden_tag() }}
+          <p>
+              {{ form.post.label }}<br>
+              {{ form.post(cols=32, rows=4) }}<br>
+              {% for error in form.post.errors %}
+              <span style="color: red;">[{{ error }}]</span>
+              {% endfor %}
+          </p>
+          <p>{{ form.submit() }}</p>
+      </form>
+      {% endif %}
+      {% for post in posts %}
+      <p>
+            {% include '_post.html' %}
+      </p>
+      {% endfor %}
+  {% endblock %}
+</body>
+</html>

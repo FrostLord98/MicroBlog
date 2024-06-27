@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+</head>
+<body>
+    <table>
+        <tr valign="top"> 
+                
+            <td><img src="{{ post.avatar(36) }}"></td>
+            <td>
+                <a href="{{ url_for('auth_blueprint.user', username=post.author) }}">
+                    {{ post.author }}
+                    </a>
+                
+                    says:<br>{{ post.body}} <br>
+                </td>
+        </tr>
+    </table>
+{% if user %}
+{% if page > 1 %}
+<a href="{{ url_for(request.url_rule.endpoint,username=user.username, page=page-1) }}">Previous</a>
+    {% endif %}
+<span>Page {{ page }} of {{ total_pages }}</span>
+
+{% if page < total_pages %}
+<a href="{{ url_for(request.url_rule.endpoint, username=user.username, page=page+1) }}">Next</a>
+    {% endif %}
+
+
+    {% else %}   
+    
+{% if page > 1 %}
+    <a href="{{ url_for(request.url_rule.endpoint, page=page-1) }}">Previous</a>
+    {% endif %}
+<span>Page {{ page }} of {{ total_pages }}</span>
+
+{% if page < total_pages %}
+<a href="{{ url_for(request.url_rule.endpoint, page=page+1) }}">Next</a>
+    {% endif %}
+    {% endif %}
+
+</body>
+</html>
